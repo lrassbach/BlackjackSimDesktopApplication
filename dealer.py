@@ -25,8 +25,7 @@ class Dealer:
 
         #This function deals cards and removes them from the deck
         def initial_deal(table_deck, num_players):
-            import players as players
-            hand = players.Players.get_hand()
+            hand = []
             dealer_hand = []
             x = 1
             for item in range(4):

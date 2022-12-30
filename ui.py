@@ -7,9 +7,9 @@ class UI:
         print('This program is designed to help you practice your blackjack.')
         print('Enter q to quit at any time.')
     
-    def hand_display(dealer_hand, hand):
+    def hand_display(dealer_hand, player):
         print('Dealer shows:', dealer_hand[1])
-        print('Your hand:', hand[0],',', hand[1])
+        player.display_hand()
 
     def get_user_action(splittable):
         if splittable == True:

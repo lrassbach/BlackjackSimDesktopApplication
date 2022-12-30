@@ -8,10 +8,19 @@ class Players:
     def add(self, card):
         self.hand.append(card)
 
-    def get_hand():
-        player_hand = []
-        return player_hand
-    
+    def get_hand(self):
+        return self.hand
+
+    def display_hand(self):
+        hand = self.name +"\'s hand: "
+        i = 0
+        for item in self.hand:
+            if i > 0:
+                hand += ", "
+            hand += item
+            i += 1
+        print(hand)
+
     def hand_sum(self):
         card_dict = CardBuilder.card_builder_dict()
         sum = 0
@@ -19,7 +28,9 @@ class Players:
             sum += int(card_dict[item])
         return sum
 
-    def __init__ (self, name):
+    def __init__ (self, name, index):
+        self.last = "null"
+        self.index = index
         self.name = name
         self.score = 0
         self.hand = []
