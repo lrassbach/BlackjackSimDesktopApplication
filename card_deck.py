@@ -1,7 +1,9 @@
 ####Card Deck
 ####Builds a Card Deck based on the parameters you choose
 
-class CardBuilder:
+# TODO add a reshuffle method
+
+class Cards:
 
     def card_builder_dict():
         #input number of suits & determine length
@@ -43,7 +45,19 @@ class CardBuilder:
         card_deck_dict = card_deck
         return card_deck_dict
     
-    
+    def ace_evaluation(hand):
+        card_dict = Cards.card_builder_dict()
+        sum = 0
+        num_aces = 0
+        for item in hand:
+            if item[0:3] == "Ace":
+                num_aces += 1
+            sum += int(card_dict[item])
+        if (sum > 21):
+            return 1
+        else:
+            return 11
+
     def card_builder_list():
         #this function creates a list of keys to resemble a card deck to your specifications
         #input number of suits & determine length

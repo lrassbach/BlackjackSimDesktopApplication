@@ -47,7 +47,7 @@ class Dealer:
         
         def check_blackjack(dealer_hand):
             total_val = 0
-            card_deck_built = card_deck.CardBuilder.card_builder_dict()
+            card_deck_built = card_deck.Cards.card_builder_dict()
             blackjack = False
             for item in dealer_hand:
                 total_val += int(card_deck_built[item])

@@ -8,7 +8,7 @@ def main():
     print('------------------------------')
     name = input("Enter player name: ")
     dealer_obj = players.Players("Dealer", 1)
-    card_deck_dictionary = cd.CardBuilder.card_builder_dict()
+    card_deck_dictionary = cd.Cards.card_builder_dict()
     deck_size = 6
     table_deck = dealer.Dealer.table_deck_builder(card_deck_dictionary, deck_size)
     play = True
@@ -33,6 +33,7 @@ def main():
             
 
 def eval_player_vs_dealer(table_deck, player, dealer_obj):
+    print("eval_player_vs_dealer")
     if type(player) == int:
         return table_deck, player, dealer_obj
     else:
@@ -40,13 +41,14 @@ def eval_player_vs_dealer(table_deck, player, dealer_obj):
             print(player.name + " BUST")
             dealer_obj.display_hand()
         elif player.hand_sum() < 22:
+            print("dealer: Flip card -->" + dealer_obj.hand[0] + ", " + dealer_obj.hand[1])
             table_deck, dealer_obj = dealer_sequence(table_deck, dealer_obj)
             player, dealer_obj = dealer_comp(player, dealer_obj)
         table_deck, player.split, dealer_obj = eval_player_vs_dealer(table_deck, player.split, dealer_obj)
         return table_deck, player, dealer_obj
 
 def dealer_sequence(table_deck, dealer_obj):
-    print("dealer: Flip card -->" + dealer_obj.hand[0] + ", " + dealer_obj.hand[1])
+    print("dealer_sequence")
     while dealer_obj.hand_sum() < 17:
         table_deck, dealer_obj = dealer.Dealer.deal_one(table_deck, dealer_obj)
         hand_print = ""
@@ -58,11 +60,13 @@ def dealer_sequence(table_deck, dealer_obj):
                 hand_print += item
             i += 1
         print("dealer: " + hand_print)
+    dealer_obj.display_hand()
     return table_deck, dealer_obj
     
     
 
 def dealer_comp(player, dealer_obj):
+    print("dealer_comp")
     if dealer_obj.hand_sum() == player.hand_sum():
         print("Push")
     elif dealer_obj.hand_sum() > 21:
@@ -76,12 +80,14 @@ def dealer_comp(player, dealer_obj):
 
 
 def play_hand(table_deck, player, dealer_obj):
+    print("play_hand")
     UI.hand_display(dealer_obj.hand,player)
     table_deck, player = player_play_blackjack(table_deck, player)
     return table_deck, player, dealer_obj
 
 # returns table_deck & list of player hands
 def player_play_blackjack(table_deck, player):
+    print("player_play_blackjack")
     if player.hand_sum() > 21:
         print("BUST")
         print("Dealer WINS")
@@ -101,9 +107,9 @@ def player_play_blackjack(table_deck, player):
                 #TODO need to add UI elements for readability during execution
                 player.split = players.Players(str(player.index) + " hand of " + player.name, player.index + 1)
                 player.split.add(player.hand.pop(1))
-                print("Hand " + player.index + "...")
+                print("Hand " + str(player.index) + "...")
                 table_deck, player = player_play_blackjack(table_deck, player)
-                print("Hand " + player.split.index + "...")
+                print("Hand " + str(player.split.index) + "...")
                 table_deck, player.split = player_play_blackjack(table_deck, player.split)
                 return table_deck, player
         else:
@@ -124,6 +130,7 @@ def player_play_blackjack(table_deck, player):
             return player_play_blackjack(table_deck, player)
 
 def hit_or_stand(table_deck, player):
+    print("hit_or_stand")
     action = UI.hit_or_stand()
     player.last = action
     if (action == "h"):
